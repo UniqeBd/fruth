@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Fruth</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="font-inter bg-gray-50">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-md">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex items-center justify-between">
+                <a href="index.html" class="text-2xl font-playfair font-bold">FRUTH</a>
+                <a href="signup.html" class="nav-link">Don't have an account? Sign Up</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Login Section -->
+    <section class="py-20">
+        <div class="container mx-auto px-6">
+            <div class="max-w-md mx-auto bg-white p-8 rounded-lg shadow-lg">
+                <h1 class="text-3xl font-playfair font-bold text-center mb-8">Welcome Back</h1>
+                
+                <form id="login-form" class="space-y-6">
+                    <div>
+                        <label class="form-label">Email</label>
+                        <input type="email" id="email" class="form-input" placeholder="your@email.com" required>
+                    </div>
+                    
+                    <div>
+                        <label class="form-label">Password</label>
+                        <input type="password" id="password" class="form-input" placeholder="••••••••" required>
+                    </div>
+                    
+                    <div class="flex items-center justify-between">
+                        <label class="flex items-center">
+                            <input type="checkbox" class="mr-2">
+                            <span class="text-sm">Remember me</span>
+                        </label>
+                        <a href="#" class="text-sm text-blue-600 hover:underline">Forgot password?</a>
+                    </div>
+                    
+                    <button type="submit" class="btn-primary w-full">Login</button>
+                    
+                    <div class="text-center">
+                        <p class="text-gray-600">Don't have an account? <a href="signup.html" class="text-blue-600 hover:underline">Sign Up</a></p>
+                    </div>
+                </form>
+                
+                <div class="mt-8 text-center text-sm text-gray-600">
+                    <p>Demo Accounts:</p>
+                    <p>Admin: admin@fruth.com / admin123</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="js/main.js"></script>
+    <script>
+        document.getElementById('login-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            
+            const result = window.appFunctions.login(email, password);
+            
+            if (result.success) {
+                window.appFunctions.showNotification('Login successful!', 'success');
+                
+                // Get redirect URL from query params
+                const urlParams = new URLSearchParams(window.location.search);
+                const redirect = urlParams.get('redirect') || (result.user.role === 'admin' ? 'admin/dashboard.html' : 'index.html');
+                
+                setTimeout(() => {
+                    window.location.href = redirect;
+                }, 1000);
+            } else {
+                window.appFunctions.showNotification(result.message, 'error');
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up - Fruth</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="font-inter bg-gray-50">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-md">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex items-center justify-between">
+                <a href="index.html" class="text-2xl font-playfair font-bold">FRUTH</a>
+                <a href="login.html" class="nav-link">Already have an account? Login</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Sign Up Section -->
+    <section class="py-20">
+        <div class="container mx-auto px-6">
+            <div class="max-w-md mx-auto bg-white p-8 rounded-lg shadow-lg">
+                <h1 class="text-3xl font-playfair font-bold text-center mb-8">Create Account</h1>
+                
+                <form id="signup-form" class="space-y-6">
+                    <div>
+                        <label class="form-label">Full Name</label>
+                        <input type="text" id="username" class="form-input" placeholder="John Doe" required>
+                    </div>
+                    
+                    <div>
+                        <label class="form-label">Email</label>
+                        <input type="email" id="email" class="form-input" placeholder="your@email.com" required>
+                    </div>
+                    
+                    <div>
+                        <label class="form-label">Password</label>
+                        <input type="password" id="password" class="form-input" placeholder="••••••••" required minlength="6">
+                    </div>
+                    
+                    <div>
+                        <label class="form-label">Confirm Password</label>
+                        <input type="password" id="confirm-password" class="form-input" placeholder="••••••••" required>
+                    </div>
+                    
+                    <div class="flex items-start">
+                        <input type="checkbox" id="terms" class="mt-1 mr-2" required>
+                        <label for="terms" class="text-sm text-gray-600">
+                            I agree to the <a href="#" class="text-blue-600 hover:underline">Terms and Conditions</a>
+                        </label>
+                    </div>
+                    
+                    <button type="submit" class="btn-primary w-full">Create Account</button>
+                    
+                    <div class="text-center">
+                        <p class="text-gray-600">Already have an account? <a href="login.html" class="text-blue-600 hover:underline">Login</a></p>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <script src="js/main.js"></script>
+    <script>
+        document.getElementById('signup-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const username = document.getElementById('username').value;
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirm-password').value;
+            
+            if (password !== confirmPassword) {
+                window.appFunctions.showNotification('Passwords do not match', 'error');
+                return;
+            }
+            
+            const result = window.appFunctions.register({
+                username,
+                email,
+                password
+            });
+            
+            if (result.success) {
+                window.appFunctions.showNotification('Account created successfully!', 'success');
+                setTimeout(() => {
+                    window.location.href = 'login.html';
+                }, 1500);
+            } else {
+                window.appFunctions.showNotification(result.message, 'error');
+            }
+        });
+    </script>
+</body>
+</html>

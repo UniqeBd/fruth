@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Messages - Fruth Admin</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../styles.css">
+</head>
+<body class="font-inter bg-gray-100">
+    <div class="flex h-screen">
+        <!-- Sidebar -->
+        <div class="admin-sidebar w-64 flex-shrink-0">
+            <div class="mb-8">
+                <h1 class="text-2xl font-playfair font-bold">FRUTH Admin</h1>
+            </div>
+            
+            <nav class="space-y-2">
+                <a href="dashboard.html" class="admin-nav-item flex items-center gap-3">
+                    <i class="fas fa-home"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="products-manage.html" class="admin-nav-item flex items-center gap-3">
+                    <i class="fas fa-box"></i>
+                    <span>Products</span>
+                </a>
+                <a href="orders.html" class="admin-nav-item flex items-center gap-3">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span>Orders</span>
+                </a>
+                <a href="customers.html" class="admin-nav-item flex items-center gap-3">
+                    <i class="fas fa-users"></i>
+                    <span>Customers</span>
+                </a>
+                <a href="messages.html" class="admin-nav-item active flex items-center gap-3">
+                    <i class="fas fa-envelope"></i>
+                    <span>Messages</span>
+                </a>
+            </nav>
+            
+            <div class="mt-auto pt-8">
+                <button onclick="logout()" class="admin-nav-item flex items-center gap-3 w-full text-left">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>Logout</span>
+                </button>
+            </div>
+        </div>
+        
+        <!-- Main Content -->
+        <div class="flex-1 overflow-auto">
+            <!-- Header -->
+            <div class="bg-white shadow-md p-6">
+                <h2 class="text-2xl font-bold">Contact Messages</h2>
+            </div>
+            
+            <!-- Messages -->
+            <div class="p-6">
+                <div id="messages-container" class="space-y-4">
+                    <!-- Messages will be loaded here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="../js/main.js"></script>
+    <script>
+        if (!window.appFunctions.requireAdmin()) {
+            // Will redirect if not admin
+        }
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            loadMessages();
+        });
+        
+        function loadMessages() {
+            const messages = JSON.parse(localStorage.getItem('contact_messages') || '[]');
+            const container = document.getElementById('messages-container');
+            
+            if (messages.length === 0) {
+                container.innerHTML = '<div class="bg-white p-8 rounded-lg text-center text-gray-500">No messages yet</div>';
+                return;
+            }
+            
+            container.innerHTML = messages.reverse().map(msg => `
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <div class="flex items-start justify-between mb-4">
+                        <div>
+                            <h3 class="text-lg font-bold">${msg.subject}</h3>
+                            <p class="text-sm text-gray-600">From: ${msg.name} (${msg.email})</p>
+                            <p class="text-sm text-gray-500">${window.appFunctions.formatDate(msg.date)}</p>
+                        </div>
+                        <span class="px-3 py-1 rounded-full text-sm ${msg.status === 'unread' ? 'bg-blue-100 text-blue-800' : 'bg-gray-100 text-gray-800'}">
+                            ${msg.status}
+                        </span>
+                    </div>
+                    <p class="text-gray-700">${msg.message}</p>
+                    <button onclick="markAsRead(${msg.id})" class="mt-4 text-blue-600 hover:underline">
+                        Mark as Read
+                    </button>
+                </div>
+            `).join('');
+        }
+        
+        function markAsRead(id) {
+            const messages = JSON.parse(localStorage.getItem('contact_messages') || '[]');
+            const message = messages.find(m => m.id === id);
+            if (message) {
+                message.status = 'read';
+                localStorage.setItem('contact_messages', JSON.stringify(messages));
+                loadMessages();
+                window.appFunctions.showNotification('Message marked as read', 'success');
+            }
+        }
+        
+        function logout() {
+            window.appFunctions.logout();
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Login - Fruth</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../styles.css">
+</head>
+<body class="font-inter bg-gray-900">
+    <section class="min-h-screen flex items-center justify-center py-12 px-6">
+        <div class="max-w-md w-full bg-white p-8 rounded-lg shadow-2xl">
+            <div class="text-center mb-8">
+                <h1 class="text-3xl font-playfair font-bold">FRUTH Admin</h1>
+                <p class="text-gray-600 mt-2">Sign in to access admin panel</p>
+            </div>
+            
+            <form id="admin-login-form" class="space-y-6">
+                <div>
+                    <label class="form-label">Email</label>
+                    <input type="email" id="email" class="form-input" placeholder="admin@fruth.com" required>
+                </div>
+                
+                <div>
+                    <label class="form-label">Password</label>
+                    <input type="password" id="password" class="form-input" placeholder="••••••••" required>
+                </div>
+                
+                <button type="submit" class="btn-primary w-full">
+                    <i class="fas fa-lock mr-2"></i>Admin Login
+                </button>
+            </form>
+            
+            <div class="mt-6 text-center text-sm text-gray-600">
+                <p>Default credentials:</p>
+                <p class="font-mono">admin@fruth.com / admin123</p>
+            </div>
+            
+            <div class="mt-6 text-center">
+                <a href="../index.html" class="text-blue-600 hover:underline">
+                    <i class="fas fa-arrow-left mr-2"></i>Back to Website
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <script src="../js/main.js"></script>
+    <script>
+        document.getElementById('admin-login-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            
+            const result = window.appFunctions.login(email, password);
+            
+            if (result.success) {
+                if (result.user.role === 'admin') {
+                    window.appFunctions.showNotification('Admin login successful!', 'success');
+                    setTimeout(() => {
+                        window.location.href = 'dashboard.html';
+                    }, 1000);
+                } else {
+                    window.appFunctions.showNotification('Access denied. Admin privileges required.', 'error');
+                    window.appFunctions.logout();
+                }
+            } else {
+                window.appFunctions.showNotification(result.message, 'error');
+            }
+        });
+    </script>
+</body>
+</html>

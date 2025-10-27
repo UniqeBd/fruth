@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Categories - Fruth</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="font-inter">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-md fixed w-full top-0 z-50">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex items-center justify-between">
+                <a href="index.html" class="text-2xl font-playfair font-bold">FRUTH</a>
+                <div class="hidden md:flex space-x-6">
+                    <a href="index.html" class="nav-link">Home</a>
+                    <a href="products.html" class="nav-link">Products</a>
+                    <a href="categories.html" class="nav-link">Categories</a>
+                    <a href="about.html" class="nav-link">About</a>
+                    <a href="contact.html" class="nav-link">Contact</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Categories Section -->
+    <section class="pt-28 pb-20">
+        <div class="container mx-auto px-6">
+            <h1 class="text-5xl font-playfair font-bold text-center mb-4">Shop by Category</h1>
+            <p class="text-center text-gray-600 mb-12">Find the perfect style for you</p>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="category-card h-96">
+                    <img src="https://images.unsplash.com/photo-1509631179647-0177331693ae?w=600" alt="Women's Fashion">
+                    <div class="category-overlay">
+                        <h3 class="text-3xl font-playfair font-bold">Women's Collection</h3>
+                        <p class="mt-2 mb-4">Elegant and stylish pieces for every occasion</p>
+                        <a href="products.html?category=women" class="btn-secondary">Shop Now</a>
+                    </div>
+                </div>
+                
+                <div class="category-card h-96">
+                    <img src="https://images.unsplash.com/photo-1490578474895-699cd4e2cf59?w=600" alt="Men's Fashion">
+                    <div class="category-overlay">
+                        <h3 class="text-3xl font-playfair font-bold">Men's Collection</h3>
+                        <p class="mt-2 mb-4">Sophisticated styles for the modern gentleman</p>
+                        <a href="products.html?category=men" class="btn-secondary">Shop Now</a>
+                    </div>
+                </div>
+                
+                <div class="category-card h-96">
+                    <img src="https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?w=600" alt="Accessories">
+                    <div class="category-overlay">
+                        <h3 class="text-3xl font-playfair font-bold">Accessories</h3>
+                        <p class="mt-2 mb-4">Complete your look with perfect accessories</p>
+                        <a href="products.html?category=accessories" class="btn-secondary">Shop Now</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-12">
+        <div class="container mx-auto px-6 text-center">
+            <p>&copy; 2024 Fruth.com. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Fruth</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../styles.css">
+</head>
+<body class="font-inter bg-gray-100">
+    <div class="flex h-screen">
+        <!-- Sidebar -->
+        <div class="admin-sidebar w-64 flex-shrink-0">
+            <div class="mb-8">
+                <h1 class="text-2xl font-playfair font-bold">FRUTH Admin</h1>
+            </div>
+            
+            <nav class="space-y-2">
+                <a href="dashboard.html" class="admin-nav-item active flex items-center gap-3">
+                    <i class="fas fa-home"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="products-manage.html" class="admin-nav-item flex items-center gap-3">
+                    <i class="fas fa-box"></i>
+                    <span>Products</span>
+                </a>
+                <a href="orders.html" class="admin-nav-item flex items-center gap-3">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span>Orders</span>
+                </a>
+                <a href="customers.html" class="admin-nav-item flex items-center gap-3">
+                    <i class="fas fa-users"></i>
+                    <span>Customers</span>
+                </a>
+                <a href="messages.html" class="admin-nav-item flex items-center gap-3">
+                    <i class="fas fa-envelope"></i>
+                    <span>Messages</span>
+                </a>
+                <a href="analytics.html" class="admin-nav-item flex items-center gap-3">
+                    <i class="fas fa-chart-line"></i>
+                    <span>Analytics</span>
+                </a>
+                <a href="settings.html" class="admin-nav-item flex items-center gap-3">
+                    <i class="fas fa-cog"></i>
+                    <span>Settings</span>
+                </a>
+            </nav>
+            
+            <div class="mt-auto pt-8">
+                <a href="../index.html" class="admin-nav-item flex items-center gap-3">
+                    <i class="fas fa-globe"></i>
+                    <span>View Website</span>
+                </a>
+                <button onclick="logout()" class="admin-nav-item flex items-center gap-3 w-full text-left">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>Logout</span>
+                </button>
+            </div>
+        </div>
+        
+        <!-- Main Content -->
+        <div class="flex-1 overflow-auto">
+            <!-- Header -->
+            <div class="bg-white shadow-md p-6">
+                <div class="flex items-center justify-between">
+                    <h2 class="text-2xl font-bold">Dashboard</h2>
+                    <div class="flex items-center gap-4">
+                        <span id="admin-name" class="text-gray-600"></span>
+                        <i class="fas fa-user-circle text-3xl text-gray-600"></i>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Dashboard Content -->
+            <div class="p-6">
+                <!-- Stats Cards -->
+                <div class="grid md:grid-cols-4 gap-6 mb-8">
+                    <div class="stat-card">
+                        <i class="fas fa-dollar-sign text-green-500"></i>
+                        <h3 class="text-gray-600 mb-2">Total Revenue</h3>
+                        <p class="text-3xl font-bold" id="total-revenue">$0</p>
+                        <p class="text-sm text-gray-500 mt-2">+12% from last month</p>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <i class="fas fa-shopping-cart text-blue-500"></i>
+                        <h3 class="text-gray-600 mb-2">Total Orders</h3>
+                        <p class="text-3xl font-bold" id="total-orders">0</p>
+                        <p class="text-sm text-gray-500 mt-2">+8% from last month</p>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <i class="fas fa-box text-orange-500"></i>
+                        <h3 class="text-gray-600 mb-2">Total Products</h3>
+                        <p class="text-3xl font-bold" id="total-products">0</p>
+                        <p class="text-sm text-gray-500 mt-2">Active inventory</p>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <i class="fas fa-users text-purple-500"></i>
+                        <h3 class="text-gray-600 mb-2">Total Customers</h3>
+                        <p class="text-3xl font-bold" id="total-customers">0</p>
+                        <p class="text-sm text-gray-500 mt-2">+15% from last month</p>
+                    </div>
+                </div>
+                
+                <!-- Charts and Tables -->
+                <div class="grid md:grid-cols-2 gap-6 mb-8">
+                    <!-- Recent Orders -->
+                    <div class="bg-white p-6 rounded-lg shadow-md">
+                        <h3 class="text-xl font-bold mb-4">Recent Orders</h3>
+                        <div class="table-container">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Order ID</th>
+                                        <th>Customer</th>
+                                        <th>Amount</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="recent-orders">
+                                    <tr>
+                                        <td colspan="4" class="text-center text-gray-500">No orders yet</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    
+                    <!-- Top Products -->
+                    <div class="bg-white p-6 rounded-lg shadow-md">
+                        <h3 class="text-xl font-bold mb-4">Top Products</h3>
+                        <div id="top-products" class="space-y-4">
+                            <p class="text-center text-gray-500">No sales data yet</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Quick Actions -->
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <h3 class="text-xl font-bold mb-4">Quick Actions</h3>
+                    <div class="grid md:grid-cols-4 gap-4">
+                        <a href="products-manage.html?action=add" class="btn-primary text-center">
+                            <i class="fas fa-plus mr-2"></i>Add Product
+                        </a>
+                        <a href="orders.html" class="btn-secondary text-center">
+                            <i class="fas fa-list mr-2"></i>View Orders
+                        </a>
+                        <a href="customers.html" class="btn-secondary text-center">
+                            <i class="fas fa-users mr-2"></i>Manage Customers
+                        </a>
+                        <a href="analytics.html" class="btn-secondary text-center">
+                            <i class="fas fa-chart-bar mr-2"></i>View Analytics
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="../js/main.js"></script>
+    <script src="../js/products.js"></script>
+    <script>
+        // Check admin authentication
+        if (!window.appFunctions.requireAdmin()) {
+            // Will redirect if not admin
+        }
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            loadDashboardData();
+        });
+        
+        function loadDashboardData() {
+            const user = window.appFunctions.getCurrentUser();
+            document.getElementById('admin-name').textContent = user.username;
+            
+            // Load stats
+            const products = window.productFunctions.getAllProducts();
+            const orders = window.appFunctions.getOrders();
+            const users = JSON.parse(localStorage.getItem('users') || '[]');
+            
+            document.getElementById('total-products').textContent = products.length;
+            document.getElementById('total-orders').textContent = orders.length;
+            document.getElementById('total-customers').textContent = users.filter(u => u.role === 'customer').length;
+            
+            // Calculate revenue
+            const revenue = orders.reduce((sum, order) => sum + (order.total || 0), 0);
+            document.getElementById('total-revenue').textContent = window.appFunctions.formatPrice(revenue);
+            
+            // Load recent orders
+            loadRecentOrders(orders);
+        }
+        
+        function loadRecentOrders(orders) {
+            const tbody = document.getElementById('recent-orders');
+            const recentOrders = orders.slice(-5).reverse();
+            
+            if (recentOrders.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="4" class="text-center text-gray-500">No orders yet</td></tr>';
+                return;
+            }
+            
+            tbody.innerHTML = recentOrders.map(order => `
+                <tr>
+                    <td>${order.id}</td>
+                    <td>${order.customerName || 'N/A'}</td>
+                    <td>${window.appFunctions.formatPrice(order.total || 0)}</td>
+                    <td><span class="px-3 py-1 rounded-full text-sm ${getStatusColor(order.status)}">${order.status}</span></td>
+                </tr>
+            `).join('');
+        }
+        
+        function getStatusColor(status) {
+            const colors = {
+                'pending': 'bg-yellow-200 text-yellow-800',
+                'processing': 'bg-blue-200 text-blue-800',
+                'shipped': 'bg-purple-200 text-purple-800',
+                'delivered': 'bg-green-200 text-green-800',
+                'cancelled': 'bg-red-200 text-red-800'
+            };
+            return colors[status] || 'bg-gray-200 text-gray-800';
+        }
+        
+        function logout() {
+            window.appFunctions.logout();
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fruth - Your Fashionable Clothing Destination</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="font-inter">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-md fixed w-full top-0 z-50">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-8">
+                    <a href="index.html" class="text-2xl font-playfair font-bold">FRUTH</a>
+                    <div class="hidden md:flex space-x-6">
+                        <a href="index.html" class="nav-link">Home</a>
+                        <a href="products.html" class="nav-link">Products</a>
+                        <a href="categories.html" class="nav-link">Categories</a>
+                        <a href="about.html" class="nav-link">About</a>
+                        <a href="contact.html" class="nav-link">Contact</a>
+                    </div>
+                </div>
+                
+                <div class="flex items-center space-x-6">
+                    <div class="relative hidden md:block">
+                        <input type="text" placeholder="Search..." class="px-4 py-2 border rounded-full focus:outline-none focus:ring-2 focus:ring-gray-300">
+                        <i class="fas fa-search absolute right-4 top-3 text-gray-400"></i>
+                    </div>
+                    <a href="cart.html" class="relative">
+                        <i class="fas fa-shopping-cart text-xl"></i>
+                        <span id="cart-count" class="absolute -top-2 -right-2 bg-red-500 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs">0</span>
+                    </a>
+                    <a href="login.html" class="nav-link">Login</a>
+                    <a href="signup.html" class="btn-primary">Sign Up</a>
+                    <button id="mobile-menu-btn" class="md:hidden">
+                        <i class="fas fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Mobile Menu -->
+            <div id="mobile-menu" class="hidden md:hidden mt-4 pb-4">
+                <a href="index.html" class="block py-2 nav-link">Home</a>
+                <a href="products.html" class="block py-2 nav-link">Products</a>
+                <a href="categories.html" class="block py-2 nav-link">Categories</a>
+                <a href="about.html" class="block py-2 nav-link">About</a>
+                <a href="contact.html" class="block py-2 nav-link">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section pt-20">
+        <div class="container mx-auto px-6 py-20">
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div class="space-y-6">
+                    <h1 class="font-playfair text-6xl font-bold leading-tight">FRUTH</h1>
+                    <p class="text-3xl font-playfair text-gray-700">Your fashionable clothing destination</p>
+                    <p class="text-lg text-gray-600">Discover the latest trends in fashion. Shop curated collections that reflect your unique style and values.</p>
+                    <a href="products.html" class="btn-primary inline-block">Shop Now</a>
+                </div>
+                <div class="hero-image">
+                    <img src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=800" alt="Fashion Model" class="rounded-lg shadow-2xl">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Categories -->
+    <section class="py-20 bg-gray-50">
+        <div class="container mx-auto px-6">
+            <h2 class="text-4xl font-playfair font-bold text-center mb-12">Shop by Category</h2>
+            <div class="grid md:grid-cols-4 gap-6">
+                <div class="category-card">
+                    <img src="https://images.unsplash.com/photo-1509631179647-0177331693ae?w=400" alt="Women's Fashion">
+                    <div class="category-overlay">
+                        <h3 class="text-2xl font-playfair font-bold">Women</h3>
+                        <a href="products.html?category=women" class="btn-secondary mt-4">Shop Now</a>
+                    </div>
+                </div>
+                <div class="category-card">
+                    <img src="https://images.unsplash.com/photo-1490578474895-699cd4e2cf59?w=400" alt="Men's Fashion">
+                    <div class="category-overlay">
+                        <h3 class="text-2xl font-playfair font-bold">Men</h3>
+                        <a href="products.html?category=men" class="btn-secondary mt-4">Shop Now</a>
+                    </div>
+                </div>
+                <div class="category-card">
+                    <img src="https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?w=400" alt="Accessories">
+                    <div class="category-overlay">
+                        <h3 class="text-2xl font-playfair font-bold">Accessories</h3>
+                        <a href="products.html?category=accessories" class="btn-secondary mt-4">Shop Now</a>
+                    </div>
+                </div>
+                <div class="category-card">
+                    <img src="https://images.unsplash.com/photo-1460353581641-37baddab0fa2?w=400" alt="Sale">
+                    <div class="category-overlay">
+                        <h3 class="text-2xl font-playfair font-bold">Sale</h3>
+                        <a href="products.html?category=sale" class="btn-secondary mt-4">Shop Now</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Products -->
+    <section class="py-20">
+        <div class="container mx-auto px-6">
+            <h2 class="text-4xl font-playfair font-bold text-center mb-12">Featured Products</h2>
+            <div id="featured-products" class="grid md:grid-cols-4 gap-8">
+                <!-- Products will be loaded dynamically -->
+            </div>
+            <div class="text-center mt-12">
+                <a href="products.html" class="btn-primary">View All Products</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="py-20 bg-gray-50">
+        <div class="container mx-auto px-6">
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div>
+                    <img src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=600" alt="About Fruth" class="rounded-lg shadow-lg">
+                </div>
+                <div class="space-y-6">
+                    <h2 class="text-4xl font-playfair font-bold">About Fruth</h2>
+                    <p class="text-lg text-gray-700">At Fruth, we are dedicated to delivering <span class="font-semibold">exceptional fashion choices</span> that reflect your unique style and values. Our journey is rooted in creativity, quality, and customer satisfaction.</p>
+                    <p class="text-lg text-gray-700">We believe in <span class="font-semibold">empowering fashion choices</span> for everyone, creating a world where style and individuality thrive seamlessly.</p>
+                    <a href="about.html" class="btn-primary inline-block">Learn More</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services -->
+    <section class="py-20">
+        <div class="container mx-auto px-6">
+            <h2 class="text-4xl font-playfair font-bold text-center mb-12">Our Services</h2>
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="text-center space-y-4">
+                    <img src="https://images.unsplash.com/photo-1489987707025-afc232f7ea0f?w=500" alt="Curated Collections" class="w-full h-64 object-cover rounded-lg">
+                    <h3 class="text-2xl font-playfair font-semibold">Curated Collections</h3>
+                    <p class="text-gray-600">Exclusive trends curated for your unique taste</p>
+                </div>
+                <div class="text-center space-y-4">
+                    <img src="https://images.unsplash.com/photo-1483985988355-763728e1935b?w=500" alt="Personalized Styling" class="w-full h-64 object-cover rounded-lg">
+                    <h3 class="text-2xl font-playfair font-semibold">Personalized Styling</h3>
+                    <p class="text-gray-600">Tailored looks to enhance your personal style</p>
+                </div>
+                <div class="text-center space-y-4">
+                    <img src="https://images.unsplash.com/photo-1558769132-cb1aea3c2f23?w=500" alt="Sustainable Fashion" class="w-full h-64 object-cover rounded-lg">
+                    <h3 class="text-2xl font-playfair font-semibold">Sustainable Fashion</h3>
+                    <p class="text-gray-600">Embrace eco-friendly choices in every outfit</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="py-20 bg-gray-50">
+        <div class="container mx-auto px-6">
+            <h2 class="text-4xl font-playfair font-bold text-center mb-12">Testimonials</h2>
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="bg-white p-8 rounded-lg shadow-lg">
+                    <div class="flex items-center space-x-4 mb-4">
+                        <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100" alt="Emma" class="w-16 h-16 rounded-full object-cover">
+                        <div>
+                            <h4 class="font-semibold text-lg">Emma</h4>
+                            <div class="text-yellow-500">★★★★★</div>
+                        </div>
+                    </div>
+                    <p class="text-gray-600">"I absolutely love my new outfits! Fruth.com never disappoints with their amazing selections."</p>
+                </div>
+                <div class="bg-white p-8 rounded-lg shadow-lg">
+                    <div class="flex items-center space-x-4 mb-4">
+                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100" alt="Liam" class="w-16 h-16 rounded-full object-cover">
+                        <div>
+                            <h4 class="font-semibold text-lg">Liam</h4>
+                            <div class="text-yellow-500">★★★★★</div>
+                        </div>
+                    </div>
+                    <p class="text-gray-600">"Shopping at Fruth.com was a delightful experience. The quality and design are top-notch!"</p>
+                </div>
+                <div class="bg-white p-8 rounded-lg shadow-lg">
+                    <div class="flex items-center space-x-4 mb-4">
+                        <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100" alt="Sophia" class="w-16 h-16 rounded-full object-cover">
+                        <div>
+                            <h4 class="font-semibold text-lg">Sophia</h4>
+                            <div class="text-yellow-500">★★★★★</div>
+                        </div>
+                    </div>
+                    <p class="text-gray-600">"Fruth.com has transformed my wardrobe. Their styles are both chic and versatile!"</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter -->
+    <section class="py-20 bg-black text-white">
+        <div class="container mx-auto px-6 text-center">
+            <h2 class="text-4xl font-playfair font-bold mb-4">Stay Updated</h2>
+            <p class="text-lg mb-8">Subscribe to our newsletter for exclusive offers and latest trends</p>
+            <form id="newsletter-form" class="max-w-md mx-auto flex gap-4">
+                <input type="email" placeholder="Enter your email" class="flex-1 px-6 py-3 rounded-full text-black focus:outline-none" required>
+                <button type="submit" class="bg-white text-black px-8 py-3 rounded-full font-semibold hover:bg-gray-200 transition">Subscribe</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-12">
+        <div class="container mx-auto px-6">
+            <div class="grid md:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="text-2xl font-playfair font-bold mb-4">FRUTH</h3>
+                    <p class="text-gray-400">Your fashionable clothing destination for exceptional style.</p>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-4">Quick Links</h4>
+                    <ul class="space-y-2">
+                        <li><a href="about.html" class="text-gray-400 hover:text-white">About Us</a></li>
+                        <li><a href="products.html" class="text-gray-400 hover:text-white">Products</a></li>
+                        <li><a href="contact.html" class="text-gray-400 hover:text-white">Contact</a></li>
+                        <li><a href="admin/login.html" class="text-gray-400 hover:text-white">Admin</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-4">Customer Service</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white">Shipping Info</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Returns</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">FAQ</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Size Guide</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-4">Contact</h4>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><i class="fas fa-map-marker-alt mr-2"></i>123 Anywhere St., Any City</li>
+                        <li><i class="fas fa-phone mr-2"></i>123-456-7890</li>
+                        <li><i class="fas fa-envelope mr-2"></i>hello@reallygreatsite.com</li>
+                    </ul>
+                    <div class="flex space-x-4 mt-4">
+                        <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-pinterest"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
+                <p>&copy; 2024 Fruth.com. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script src="js/products.js"></script>
+</body>
+</html>
