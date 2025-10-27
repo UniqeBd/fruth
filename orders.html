@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Orders - Fruth</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="font-inter bg-gray-50">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-md fixed w-full top-0 z-50">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-8">
+                    <a href="index.html" class="text-2xl font-playfair font-bold">FRUTH</a>
+                    <div class="hidden md:flex space-x-6">
+                        <a href="index.html" class="nav-link">Home</a>
+                        <a href="products.html" class="nav-link">Products</a>
+                        <a href="categories.html" class="nav-link">Categories</a>
+                        <a href="about.html" class="nav-link">About</a>
+                        <a href="contact.html" class="nav-link">Contact</a>
+                    </div>
+                </div>
+                
+                <div class="flex items-center space-x-6">
+                    <a href="cart.html" class="relative">
+                        <i class="fas fa-shopping-cart text-xl"></i>
+                        <span id="cart-count" class="absolute -top-2 -right-2 bg-red-500 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs">0</span>
+                    </a>
+                    
+                    <div id="user-profile" class="relative">
+                        <button id="profile-btn" class="flex items-center space-x-2 hover:opacity-80">
+                            <i class="fas fa-user-circle text-3xl text-gray-700"></i>
+                            <span id="user-name" class="hidden md:block font-semibold"></span>
+                            <i class="fas fa-chevron-down text-sm"></i>
+                        </button>
+                        
+                        <div id="profile-dropdown" class="hidden absolute right-0 mt-2 w-56 bg-white rounded-lg shadow-xl border py-2 z-50">
+                            <div class="px-4 py-3 border-b">
+                                <p class="text-sm font-semibold" id="dropdown-name"></p>
+                                <p class="text-xs text-gray-500" id="dropdown-email"></p>
+                            </div>
+                            <a href="profile.html" class="block px-4 py-2 hover:bg-gray-100 transition">
+                                <i class="fas fa-user mr-2"></i>My Profile
+                            </a>
+                            <a href="orders.html" class="block px-4 py-2 hover:bg-gray-100 transition">
+                                <i class="fas fa-shopping-bag mr-2"></i>My Orders
+                            </a>
+                            <a href="wishlist.html" class="block px-4 py-2 hover:bg-gray-100 transition">
+                                <i class="fas fa-heart mr-2"></i>Wishlist
+                            </a>
+                            <a href="settings.html" class="block px-4 py-2 hover:bg-gray-100 transition">
+                                <i class="fas fa-cog mr-2"></i>Settings
+                            </a>
+                            <div class="border-t mt-2 pt-2">
+                                <button onclick="logoutUser()" class="w-full text-left px-4 py-2 hover:bg-gray-100 transition text-red-600">
+                                    <i class="fas fa-sign-out-alt mr-2"></i>Logout
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Orders Section -->
+    <section class="pt-28 pb-20">
+        <div class="container mx-auto px-6">
+            <div class="max-w-6xl mx-auto">
+                <h1 class="text-4xl font-playfair font-bold mb-8">My Orders</h1>
+                
+                <div class="grid md:grid-cols-4 gap-6 mb-8">
+                    <!-- Sidebar -->
+                    <div class="md:col-span-1">
+                        <div class="bg-white rounded-lg shadow-md p-6">
+                            <nav class="space-y-2">
+                                <a href="profile.html" class="flex items-center gap-3 px-4 py-3 hover:bg-gray-100 rounded-lg transition">
+                                    <i class="fas fa-user"></i>
+                                    <span>Profile</span>
+                                </a>
+                                <a href="orders.html" class="flex items-center gap-3 px-4 py-3 bg-black text-white rounded-lg">
+                                    <i class="fas fa-shopping-bag"></i>
+                                    <span>My Orders</span>
+                                </a>
+                                <a href="wishlist.html" class="flex items-center gap-3 px-4 py-3 hover:bg-gray-100 rounded-lg transition">
+                                    <i class="fas fa-heart"></i>
+                                    <span>Wishlist</span>
+                                </a>
+                                <a href="settings.html" class="flex items-center gap-3 px-4 py-3 hover:bg-gray-100 rounded-lg transition">
+                                    <i class="fas fa-cog"></i>
+                                    <span>Settings</span>
+                                </a>
+                            </nav>
+                        </div>
+                    </div>
+                    
+                    <!-- Orders List -->
+                    <div class="md:col-span-3">
+                        <div id="orders-container" class="space-y-6">
+                            <!-- Orders will be loaded here -->
+                        </div>
+                        
+                        <div id="no-orders" class="hidden bg-white rounded-lg shadow-md p-12 text-center">
+                            <i class="fas fa-shopping-bag text-6xl text-gray-300 mb-4"></i>
+                            <h3 class="text-2xl font-semibold mb-2">No orders yet</h3>
+                            <p class="text-gray-600 mb-6">Start shopping to see your orders here</p>
+                            <a href="products.html" class="btn-primary">Browse Products</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-12">
+        <div class="container mx-auto px-6 text-center">
+            <p>&copy; 2024 Fruth.com. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script>
+        if (!window.appFunctions.requireAuth()) {
+            // Will redirect to login
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            loadOrders();
+            updateAuthUI();
+            initProfileDropdown();
+        });
+
+        function loadOrders() {
+            const user = window.appFunctions.getCurrentUser();
+            const orders = window.appFunctions.getUserOrders(user.userId);
+            const container = document.getElementById('orders-container');
+            const noOrders = document.getElementById('no-orders');
+
+            if (orders.length === 0) {
+                container.classList.add('hidden');
+                noOrders.classList.remove('hidden');
+                return;
+            }
+
+            container.classList.remove('hidden');
+            noOrders.classList.add('hidden');
+
+            container.innerHTML = orders.reverse().map(order => `
+                <div class="bg-white rounded-lg shadow-md p-6">
+                    <div class="flex items-center justify-between mb-4">
+                        <div>
+                            <h3 class="font-bold text-lg">Order #${order.id}</h3>
+                            <p class="text-sm text-gray-600">${window.appFunctions.formatDate(order.date)}</p>
+                        </div>
+                        <span class="px-4 py-2 rounded-full text-sm font-semibold ${getStatusColor(order.status)}">
+                            ${order.status.charAt(0).toUpperCase() + order.status.slice(1)}
+                        </span>
+                    </div>
+                    
+                    <div class="border-t border-b py-4 mb-4">
+                        ${renderOrderItems(order.items || [])}
+                    </div>
+                    
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-gray-600">Total Amount</p>
+                            <p class="text-2xl font-bold">${window.appFunctions.formatPrice(order.total || 0)}</p>
+                        </div>
+                        <div class="flex gap-2">
+                            <button onclick="viewOrderDetails('${order.id}')" class="btn-secondary">View Details</button>
+                            ${order.status === 'delivered' ? '<button onclick="reorder(\''+order.id+'\')" class="btn-primary">Reorder</button>' : ''}
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function renderOrderItems(items) {
+            if (!items || items.length === 0) {
+                return '<p class="text-gray-500">No items</p>';
+            }
+            
+            return items.slice(0, 3).map(item => `
+                <div class="flex items-center gap-4 py-2">
+                    <img src="${item.image || 'https://via.placeholder.com/60'}" class="w-16 h-16 object-cover rounded" alt="${item.name}">
+                    <div class="flex-1">
+                        <p class="font-semibold">${item.name}</p>
+                        <p class="text-sm text-gray-600">Qty: ${item.quantity}</p>
+                    </div>
+                    <p class="font-bold">${window.appFunctions.formatPrice(item.price * item.quantity)}</p>
+                </div>
+            `).join('') + (items.length > 3 ? `<p class="text-sm text-gray-500 mt-2">+${items.length - 3} more items</p>` : '');
+        }
+
+        function getStatusColor(status) {
+            const colors = {
+                'pending': 'bg-yellow-100 text-yellow-800',
+                'processing': 'bg-blue-100 text-blue-800',
+                'shipped': 'bg-purple-100 text-purple-800',
+                'delivered': 'bg-green-100 text-green-800',
+                'cancelled': 'bg-red-100 text-red-800'
+            };
+            return colors[status] || 'bg-gray-100 text-gray-800';
+        }
+
+        function viewOrderDetails(orderId) {
+            window.appFunctions.showNotification('Order details feature coming soon!', 'info');
+        }
+
+        function reorder(orderId) {
+            const orders = window.appFunctions.getOrders();
+            const order = orders.find(o => o.id === orderId);
+            
+            if (order && order.items) {
+                order.items.forEach(item => {
+                    window.appFunctions.addToCart(item);
+                });
+                window.appFunctions.showNotification('Items added to cart!', 'success');
+                setTimeout(() => window.location.href = 'cart.html', 1000);
+            }
+        }
+
+        function updateAuthUI() {
+            const user = window.appFunctions.getCurrentUser();
+            if (user) {
+                document.getElementById('user-name').textContent = user.username;
+                document.getElementById('dropdown-name').textContent = user.username;
+                document.getElementById('dropdown-email').textContent = user.email;
+            }
+        }
+
+        function initProfileDropdown() {
+            const profileBtn = document.getElementById('profile-btn');
+            const dropdown = document.getElementById('profile-dropdown');
+
+            if (profileBtn && dropdown) {
+                profileBtn.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    dropdown.classList.toggle('hidden');
+                });
+
+                document.addEventListener('click', function(e) {
+                    if (!profileBtn.contains(e.target) && !dropdown.contains(e.target)) {
+                        dropdown.classList.add('hidden');
+                    }
+                });
+            }
+        }
+
+        function logoutUser() {
+            if (confirm('Are you sure you want to logout?')) {
+                window.appFunctions.logout();
+            }
+        }
+    </script>
+</body>
+</html>

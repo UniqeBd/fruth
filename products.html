@@ -188,6 +188,13 @@
         document.addEventListener('DOMContentLoaded', function() {
             loadProducts();
             initializeFilters();
+            updateAuthUI();
+            initProfileDropdown();
+            
+            // Initialize wishlist UI after products are loaded
+            setTimeout(() => {
+                window.appFunctions.initializeWishlistUI();
+            }, 100);
         });
 
         function loadProducts() {

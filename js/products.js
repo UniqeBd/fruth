@@ -234,8 +234,11 @@ function deleteProduct(id) {
 function renderProductCard(product) {
     return `
         <div class="product-card fade-in" onclick="window.location.href='product-detail.html?id=${product.id}'">
-            <div class="overflow-hidden">
+            <div class="relative overflow-hidden">
                 <img src="${product.image}" alt="${product.name}" class="product-image">
+                <button onclick="event.stopPropagation(); window.appFunctions.toggleWishlist(${product.id})" class="absolute top-4 right-4 w-10 h-10 bg-white rounded-full flex items-center justify-center hover:bg-gray-100 transition shadow-md wishlist-btn-${product.id}">
+                    <i class="far fa-heart text-xl wishlist-icon-${product.id}"></i>
+                </button>
             </div>
             <div class="product-info">
                 <div class="product-rating">

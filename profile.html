@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Profile - Fruth</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="font-inter bg-gray-50">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-md fixed w-full top-0 z-50">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-8">
+                    <a href="index.html" class="text-2xl font-playfair font-bold">FRUTH</a>
+                    <div class="hidden md:flex space-x-6">
+                        <a href="index.html" class="nav-link">Home</a>
+                        <a href="products.html" class="nav-link">Products</a>
+                        <a href="categories.html" class="nav-link">Categories</a>
+                        <a href="about.html" class="nav-link">About</a>
+                        <a href="contact.html" class="nav-link">Contact</a>
+                    </div>
+                </div>
+                
+                <div class="flex items-center space-x-6">
+                    <a href="cart.html" class="relative">
+                        <i class="fas fa-shopping-cart text-xl"></i>
+                        <span id="cart-count" class="absolute -top-2 -right-2 bg-red-500 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs">0</span>
+                    </a>
+                    
+                    <div id="user-profile" class="relative">
+                        <button id="profile-btn" class="flex items-center space-x-2 hover:opacity-80">
+                            <i class="fas fa-user-circle text-3xl text-gray-700"></i>
+                            <span id="user-name" class="hidden md:block font-semibold"></span>
+                            <i class="fas fa-chevron-down text-sm"></i>
+                        </button>
+                        
+                        <div id="profile-dropdown" class="hidden absolute right-0 mt-2 w-56 bg-white rounded-lg shadow-xl border py-2 z-50">
+                            <div class="px-4 py-3 border-b">
+                                <p class="text-sm font-semibold" id="dropdown-name"></p>
+                                <p class="text-xs text-gray-500" id="dropdown-email"></p>
+                            </div>
+                            <a href="profile.html" class="block px-4 py-2 hover:bg-gray-100 transition">
+                                <i class="fas fa-user mr-2"></i>My Profile
+                            </a>
+                            <a href="orders.html" class="block px-4 py-2 hover:bg-gray-100 transition">
+                                <i class="fas fa-shopping-bag mr-2"></i>My Orders
+                            </a>
+                            <a href="wishlist.html" class="block px-4 py-2 hover:bg-gray-100 transition">
+                                <i class="fas fa-heart mr-2"></i>Wishlist
+                            </a>
+                            <a href="settings.html" class="block px-4 py-2 hover:bg-gray-100 transition">
+                                <i class="fas fa-cog mr-2"></i>Settings
+                            </a>
+                            <div class="border-t mt-2 pt-2">
+                                <button onclick="logoutUser()" class="w-full text-left px-4 py-2 hover:bg-gray-100 transition text-red-600">
+                                    <i class="fas fa-sign-out-alt mr-2"></i>Logout
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Profile Section -->
+    <section class="pt-28 pb-20">
+        <div class="container mx-auto px-6">
+            <div class="max-w-4xl mx-auto">
+                <h1 class="text-4xl font-playfair font-bold mb-8">My Profile</h1>
+                
+                <div class="grid md:grid-cols-3 gap-8">
+                    <!-- Sidebar -->
+                    <div class="md:col-span-1">
+                        <div class="bg-white rounded-lg shadow-md p-6">
+                            <div class="text-center mb-6">
+                                <div class="w-32 h-32 mx-auto bg-gray-200 rounded-full flex items-center justify-center mb-4">
+                                    <i class="fas fa-user text-6xl text-gray-400"></i>
+                                </div>
+                                <h3 class="font-bold text-xl" id="profile-username"></h3>
+                                <p class="text-gray-500 text-sm" id="profile-email"></p>
+                            </div>
+                            
+                            <nav class="space-y-2">
+                                <a href="profile.html" class="flex items-center gap-3 px-4 py-3 bg-black text-white rounded-lg">
+                                    <i class="fas fa-user"></i>
+                                    <span>Profile Information</span>
+                                </a>
+                                <a href="orders.html" class="flex items-center gap-3 px-4 py-3 hover:bg-gray-100 rounded-lg transition">
+                                    <i class="fas fa-shopping-bag"></i>
+                                    <span>My Orders</span>
+                                </a>
+                                <a href="wishlist.html" class="flex items-center gap-3 px-4 py-3 hover:bg-gray-100 rounded-lg transition">
+                                    <i class="fas fa-heart"></i>
+                                    <span>Wishlist</span>
+                                </a>
+                                <a href="settings.html" class="flex items-center gap-3 px-4 py-3 hover:bg-gray-100 rounded-lg transition">
+                                    <i class="fas fa-cog"></i>
+                                    <span>Settings</span>
+                                </a>
+                            </nav>
+                        </div>
+                    </div>
+                    
+                    <!-- Main Content -->
+                    <div class="md:col-span-2">
+                        <div class="bg-white rounded-lg shadow-md p-8">
+                            <h2 class="text-2xl font-bold mb-6">Profile Information</h2>
+                            
+                            <form id="profile-form" class="space-y-6">
+                                <div>
+                                    <label class="form-label">Full Name</label>
+                                    <input type="text" id="fullname" class="form-input" required>
+                                </div>
+                                
+                                <div>
+                                    <label class="form-label">Email Address</label>
+                                    <input type="email" id="email" class="form-input" readonly>
+                                </div>
+                                
+                                <div>
+                                    <label class="form-label">Phone Number</label>
+                                    <input type="tel" id="phone" class="form-input" placeholder="+1 (555) 000-0000">
+                                </div>
+                                
+                                <div>
+                                    <label class="form-label">Address</label>
+                                    <textarea id="address" class="form-input" rows="3" placeholder="Street address, city, state, ZIP"></textarea>
+                                </div>
+                                
+                                <div class="grid md:grid-cols-2 gap-4">
+                                    <div>
+                                        <label class="form-label">City</label>
+                                        <input type="text" id="city" class="form-input">
+                                    </div>
+                                    <div>
+                                        <label class="form-label">ZIP Code</label>
+                                        <input type="text" id="zip" class="form-input">
+                                    </div>
+                                </div>
+                                
+                                <div class="flex gap-4">
+                                    <button type="submit" class="btn-primary flex-1">Save Changes</button>
+                                    <button type="button" onclick="cancelEdit()" class="btn-secondary flex-1">Cancel</button>
+                                </div>
+                            </form>
+                        </div>
+                        
+                        <!-- Account Statistics -->
+                        <div class="grid md:grid-cols-3 gap-4 mt-6">
+                            <div class="bg-white rounded-lg shadow-md p-6 text-center">
+                                <i class="fas fa-shopping-bag text-3xl text-blue-500 mb-2"></i>
+                                <h3 class="text-2xl font-bold" id="total-orders">0</h3>
+                                <p class="text-gray-600">Total Orders</p>
+                            </div>
+                            <div class="bg-white rounded-lg shadow-md p-6 text-center">
+                                <i class="fas fa-heart text-3xl text-red-500 mb-2"></i>
+                                <h3 class="text-2xl font-bold" id="wishlist-count">0</h3>
+                                <p class="text-gray-600">Wishlist Items</p>
+                            </div>
+                            <div class="bg-white rounded-lg shadow-md p-6 text-center">
+                                <i class="fas fa-star text-3xl text-yellow-500 mb-2"></i>
+                                <h3 class="text-2xl font-bold">0</h3>
+                                <p class="text-gray-600">Reviews</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-12">
+        <div class="container mx-auto px-6 text-center">
+            <p>&copy; 2024 Fruth.com. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script>
+        // Check if user is logged in
+        if (!window.appFunctions.requireAuth()) {
+            // Will redirect to login
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            loadProfileData();
+            updateAuthUI();
+            initProfileDropdown();
+        });
+
+        function loadProfileData() {
+            const user = window.appFunctions.getCurrentUser();
+            if (!user) return;
+
+            // Get user profile data
+            const profiles = JSON.parse(localStorage.getItem('user_profiles') || '{}');
+            const userProfile = profiles[user.userId] || {};
+
+            // Update sidebar
+            document.getElementById('profile-username').textContent = user.username;
+            document.getElementById('profile-email').textContent = user.email;
+            document.getElementById('user-name').textContent = user.username;
+            document.getElementById('dropdown-name').textContent = user.username;
+            document.getElementById('dropdown-email').textContent = user.email;
+
+            // Update form
+            document.getElementById('fullname').value = userProfile.fullname || user.username;
+            document.getElementById('email').value = user.email;
+            document.getElementById('phone').value = userProfile.phone || '';
+            document.getElementById('address').value = userProfile.address || '';
+            document.getElementById('city').value = userProfile.city || '';
+            document.getElementById('zip').value = userProfile.zip || '';
+
+            // Update statistics
+            const orders = window.appFunctions.getUserOrders(user.userId);
+            const wishlist = JSON.parse(localStorage.getItem('wishlist_' + user.userId) || '[]');
+            document.getElementById('total-orders').textContent = orders.length;
+            document.getElementById('wishlist-count').textContent = wishlist.length;
+        }
+
+        document.getElementById('profile-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const user = window.appFunctions.getCurrentUser();
+            
+            const profiles = JSON.parse(localStorage.getItem('user_profiles') || '{}');
+            profiles[user.userId] = {
+                fullname: document.getElementById('fullname').value,
+                phone: document.getElementById('phone').value,
+                address: document.getElementById('address').value,
+                city: document.getElementById('city').value,
+                zip: document.getElementById('zip').value
+            };
+            
+            localStorage.setItem('user_profiles', JSON.stringify(profiles));
+            window.appFunctions.showNotification('Profile updated successfully!', 'success');
+            
+            // Update sidebar
+            document.getElementById('profile-username').textContent = profiles[user.userId].fullname;
+        });
+
+        function cancelEdit() {
+            loadProfileData();
+            window.appFunctions.showNotification('Changes cancelled', 'info');
+        }
+
+        function updateAuthUI() {
+            const user = window.appFunctions.getCurrentUser();
+            if (user) {
+                document.getElementById('user-name').textContent = user.username;
+                document.getElementById('dropdown-name').textContent = user.username;
+                document.getElementById('dropdown-email').textContent = user.email;
+            }
+        }
+
+        function initProfileDropdown() {
+            const profileBtn = document.getElementById('profile-btn');
+            const dropdown = document.getElementById('profile-dropdown');
+
+            if (profileBtn && dropdown) {
+                profileBtn.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    dropdown.classList.toggle('hidden');
+                });
+
+                document.addEventListener('click', function(e) {
+                    if (!profileBtn.contains(e.target) && !dropdown.contains(e.target)) {
+                        dropdown.classList.add('hidden');
+                    }
+                });
+            }
+        }
+
+        function logoutUser() {
+            if (confirm('Are you sure you want to logout?')) {
+                window.appFunctions.logout();
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings - Fruth</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="font-inter bg-gray-50">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-md fixed w-full top-0 z-50">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-8">
+                    <a href="index.html" class="text-2xl font-playfair font-bold">FRUTH</a>
+                    <div class="hidden md:flex space-x-6">
+                        <a href="index.html" class="nav-link">Home</a>
+                        <a href="products.html" class="nav-link">Products</a>
+                        <a href="categories.html" class="nav-link">Categories</a>
+                        <a href="about.html" class="nav-link">About</a>
+                        <a href="contact.html" class="nav-link">Contact</a>
+                    </div>
+                </div>
+                
+                <div class="flex items-center space-x-6">
+                    <a href="cart.html" class="relative">
+                        <i class="fas fa-shopping-cart text-xl"></i>
+                        <span id="cart-count" class="absolute -top-2 -right-2 bg-red-500 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs">0</span>
+                    </a>
+                    
+                    <div id="user-profile" class="relative">
+                        <button id="profile-btn" class="flex items-center space-x-2 hover:opacity-80">
+                            <i class="fas fa-user-circle text-3xl text-gray-700"></i>
+                            <span id="user-name" class="hidden md:block font-semibold"></span>
+                            <i class="fas fa-chevron-down text-sm"></i>
+                        </button>
+                        
+                        <div id="profile-dropdown" class="hidden absolute right-0 mt-2 w-56 bg-white rounded-lg shadow-xl border py-2 z-50">
+                            <div class="px-4 py-3 border-b">
+                                <p class="text-sm font-semibold" id="dropdown-name"></p>
+                                <p class="text-xs text-gray-500" id="dropdown-email"></p>
+                            </div>
+                            <a href="profile.html" class="block px-4 py-2 hover:bg-gray-100 transition">
+                                <i class="fas fa-user mr-2"></i>My Profile
+                            </a>
+                            <a href="orders.html" class="block px-4 py-2 hover:bg-gray-100 transition">
+                                <i class="fas fa-shopping-bag mr-2"></i>My Orders
+                            </a>
+                            <a href="wishlist.html" class="block px-4 py-2 hover:bg-gray-100 transition">
+                                <i class="fas fa-heart mr-2"></i>Wishlist
+                            </a>
+                            <a href="settings.html" class="block px-4 py-2 hover:bg-gray-100 transition">
+                                <i class="fas fa-cog mr-2"></i>Settings
+                            </a>
+                            <div class="border-t mt-2 pt-2">
+                                <button onclick="logoutUser()" class="w-full text-left px-4 py-2 hover:bg-gray-100 transition text-red-600">
+                                    <i class="fas fa-sign-out-alt mr-2"></i>Logout
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Settings Section -->
+    <section class="pt-28 pb-20">
+        <div class="container mx-auto px-6">
+            <div class="max-w-6xl mx-auto">
+                <h1 class="text-4xl font-playfair font-bold mb-8">Settings</h1>
+                
+                <div class="grid md:grid-cols-4 gap-6">
+                    <!-- Sidebar -->
+                    <div class="md:col-span-1">
+                        <div class="bg-white rounded-lg shadow-md p-6">
+                            <nav class="space-y-2">
+                                <a href="profile.html" class="flex items-center gap-3 px-4 py-3 hover:bg-gray-100 rounded-lg transition">
+                                    <i class="fas fa-user"></i>
+                                    <span>Profile</span>
+                                </a>
+                                <a href="orders.html" class="flex items-center gap-3 px-4 py-3 hover:bg-gray-100 rounded-lg transition">
+                                    <i class="fas fa-shopping-bag"></i>
+                                    <span>My Orders</span>
+                                </a>
+                                <a href="wishlist.html" class="flex items-center gap-3 px-4 py-3 hover:bg-gray-100 rounded-lg transition">
+                                    <i class="fas fa-heart"></i>
+                                    <span>Wishlist</span>
+                                </a>
+                                <a href="settings.html" class="flex items-center gap-3 px-4 py-3 bg-black text-white rounded-lg">
+                                    <i class="fas fa-cog"></i>
+                                    <span>Settings</span>
+                                </a>
+                            </nav>
+                        </div>
+                    </div>
+                    
+                    <!-- Settings Content -->
+                    <div class="md:col-span-3 space-y-6">
+                        <!-- Account Settings -->
+                        <div class="bg-white rounded-lg shadow-md p-8">
+                            <h2 class="text-2xl font-bold mb-6 flex items-center gap-2">
+                                <i class="fas fa-user-cog"></i>
+                                Account Settings
+                            </h2>
+                            
+                            <form id="account-form" class="space-y-6">
+                                <div>
+                                    <label class="form-label">Username</label>
+                                    <input type="text" id="username" class="form-input" readonly>
+                                </div>
+                                
+                                <div>
+                                    <label class="form-label">Email</label>
+                                    <input type="email" id="email" class="form-input" readonly>
+                                </div>
+                                
+                                <div class="pt-4">
+                                    <h3 class="font-semibold mb-4">Change Password</h3>
+                                    <div class="space-y-4">
+                                        <div>
+                                            <label class="form-label">Current Password</label>
+                                            <input type="password" id="current-password" class="form-input">
+                                        </div>
+                                        <div>
+                                            <label class="form-label">New Password</label>
+                                            <input type="password" id="new-password" class="form-input">
+                                        </div>
+                                        <div>
+                                            <label class="form-label">Confirm New Password</label>
+                                            <input type="password" id="confirm-password" class="form-input">
+                                        </div>
+                                        <button type="button" onclick="changePassword()" class="btn-primary">Update Password</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        
+                        <!-- Notification Settings -->
+                        <div class="bg-white rounded-lg shadow-md p-8">
+                            <h2 class="text-2xl font-bold mb-6 flex items-center gap-2">
+                                <i class="fas fa-bell"></i>
+                                Notification Preferences
+                            </h2>
+                            
+                            <div class="space-y-4">
+                                <div class="flex items-center justify-between py-3 border-b">
+                                    <div>
+                                        <h4 class="font-semibold">Order Updates</h4>
+                                        <p class="text-sm text-gray-600">Get notified about order status changes</p>
+                                    </div>
+                                    <label class="relative inline-flex items-center cursor-pointer">
+                                        <input type="checkbox" id="notify-orders" class="sr-only peer" checked>
+                                        <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
+                                    </label>
+                                </div>
+                                
+                                <div class="flex items-center justify-between py-3 border-b">
+                                    <div>
+                                        <h4 class="font-semibold">Promotions & Offers</h4>
+                                        <p class="text-sm text-gray-600">Receive special offers and discounts</p>
+                                    </div>
+                                    <label class="relative inline-flex items-center cursor-pointer">
+                                        <input type="checkbox" id="notify-promos" class="sr-only peer" checked>
+                                        <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
+                                    </label>
+                                </div>
+                                
+                                <div class="flex items-center justify-between py-3 border-b">
+                                    <div>
+                                        <h4 class="font-semibold">New Arrivals</h4>
+                                        <p class="text-sm text-gray-600">Be the first to know about new products</p>
+                                    </div>
+                                    <label class="relative inline-flex items-center cursor-pointer">
+                                        <input type="checkbox" id="notify-arrivals" class="sr-only peer">
+                                        <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
+                                    </label>
+                                </div>
+                                
+                                <button onclick="saveNotifications()" class="btn-primary mt-4">Save Preferences</button>
+                            </div>
+                        </div>
+                        
+                        <!-- Privacy Settings -->
+                        <div class="bg-white rounded-lg shadow-md p-8">
+                            <h2 class="text-2xl font-bold mb-6 flex items-center gap-2">
+                                <i class="fas fa-shield-alt"></i>
+                                Privacy & Security
+                            </h2>
+                            
+                            <div class="space-y-4">
+                                <div class="flex items-center justify-between py-3 border-b">
+                                    <div>
+                                        <h4 class="font-semibold">Two-Factor Authentication</h4>
+                                        <p class="text-sm text-gray-600">Add an extra layer of security</p>
+                                    </div>
+                                    <button class="btn-secondary text-sm">Enable</button>
+                                </div>
+                                
+                                <div class="flex items-center justify-between py-3 border-b">
+                                    <div>
+                                        <h4 class="font-semibold">Download My Data</h4>
+                                        <p class="text-sm text-gray-600">Get a copy of your account data</p>
+                                    </div>
+                                    <button onclick="downloadData()" class="btn-secondary text-sm">Download</button>
+                                </div>
+                                
+                                <div class="flex items-center justify-between py-3 border-b">
+                                    <div>
+                                        <h4 class="font-semibold text-red-600">Delete Account</h4>
+                                        <p class="text-sm text-gray-600">Permanently delete your account</p>
+                                    </div>
+                                    <button onclick="deleteAccount()" class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg text-sm transition">Delete</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-12">
+        <div class="container mx-auto px-6 text-center">
+            <p>&copy; 2024 Fruth.com. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script>
+        if (!window.appFunctions.requireAuth()) {
+            // Will redirect to login
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            loadSettings();
+            updateAuthUI();
+            initProfileDropdown();
+        });
+
+        function loadSettings() {
+            const user = window.appFunctions.getCurrentUser();
+            
+            document.getElementById('username').value = user.username;
+            document.getElementById('email').value = user.email;
+            
+            // Load notification preferences
+            const settings = JSON.parse(localStorage.getItem('user_settings_' + user.userId) || '{}');
+            
+            if (settings.notifications) {
+                document.getElementById('notify-orders').checked = settings.notifications.orders !== false;
+                document.getElementById('notify-promos').checked = settings.notifications.promos !== false;
+                document.getElementById('notify-arrivals').checked = settings.notifications.arrivals === true;
+            }
+        }
+
+        function changePassword() {
+            const currentPassword = document.getElementById('current-password').value;
+            const newPassword = document.getElementById('new-password').value;
+            const confirmPassword = document.getElementById('confirm-password').value;
+            
+            if (!currentPassword || !newPassword || !confirmPassword) {
+                window.appFunctions.showNotification('Please fill in all password fields', 'error');
+                return;
+            }
+            
+            if (newPassword !== confirmPassword) {
+                window.appFunctions.showNotification('New passwords do not match', 'error');
+                return;
+            }
+            
+            if (newPassword.length < 6) {
+                window.appFunctions.showNotification('Password must be at least 6 characters', 'error');
+                return;
+            }
+            
+            const user = window.appFunctions.getCurrentUser();
+            const users = JSON.parse(localStorage.getItem('users') || '[]');
+            const userIndex = users.findIndex(u => u.userId === user.userId);
+            
+            if (userIndex !== -1 && users[userIndex].password === currentPassword) {
+                users[userIndex].password = newPassword;
+                localStorage.setItem('users', JSON.stringify(users));
+                
+                document.getElementById('current-password').value = '';
+                document.getElementById('new-password').value = '';
+                document.getElementById('confirm-password').value = '';
+                
+                window.appFunctions.showNotification('Password updated successfully!', 'success');
+            } else {
+                window.appFunctions.showNotification('Current password is incorrect', 'error');
+            }
+        }
+
+        function saveNotifications() {
+            const user = window.appFunctions.getCurrentUser();
+            const settings = {
+                notifications: {
+                    orders: document.getElementById('notify-orders').checked,
+                    promos: document.getElementById('notify-promos').checked,
+                    arrivals: document.getElementById('notify-arrivals').checked
+                }
+            };
+            
+            localStorage.setItem('user_settings_' + user.userId, JSON.stringify(settings));
+            window.appFunctions.showNotification('Notification preferences saved!', 'success');
+        }
+
+        function downloadData() {
+            const user = window.appFunctions.getCurrentUser();
+            const orders = window.appFunctions.getUserOrders(user.userId);
+            const wishlist = JSON.parse(localStorage.getItem('wishlist_' + user.userId) || '[]');
+            const profile = JSON.parse(localStorage.getItem('user_profiles') || '{}')[user.userId];
+            
+            const data = {
+                user: {
+                    username: user.username,
+                    email: user.email,
+                    userId: user.userId
+                },
+                profile: profile || {},
+                orders: orders,
+                wishlist: wishlist,
+                exportDate: new Date().toISOString()
+            };
+            
+            const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'fruth-account-data.json';
+            a.click();
+            
+            window.appFunctions.showNotification('Data downloaded successfully!', 'success');
+        }
+
+        function deleteAccount() {
+            if (confirm('Are you sure you want to delete your account? This action cannot be undone.')) {
+                if (confirm('This will permanently delete all your data. Are you absolutely sure?')) {
+                    const user = window.appFunctions.getCurrentUser();
+                    
+                    // Remove user data
+                    let users = JSON.parse(localStorage.getItem('users') || '[]');
+                    users = users.filter(u => u.userId !== user.userId);
+                    localStorage.setItem('users', JSON.stringify(users));
+                    
+                    // Clean up user-specific data
+                    localStorage.removeItem('wishlist_' + user.userId);
+                    localStorage.removeItem('user_settings_' + user.userId);
+                    
+                    // Logout
+                    window.appFunctions.logout();
+                    window.appFunctions.showNotification('Account deleted successfully', 'info');
+                }
+            }
+        }
+
+        function updateAuthUI() {
+            const user = window.appFunctions.getCurrentUser();
+            if (user) {
+                document.getElementById('user-name').textContent = user.username;
+                document.getElementById('dropdown-name').textContent = user.username;
+                document.getElementById('dropdown-email').textContent = user.email;
+            }
+        }
+
+        function initProfileDropdown() {
+            const profileBtn = document.getElementById('profile-btn');
+            const dropdown = document.getElementById('profile-dropdown');
+
+            if (profileBtn && dropdown) {
+                profileBtn.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    dropdown.classList.toggle('hidden');
+                });
+
+                document.addEventListener('click', function(e) {
+                    if (!profileBtn.contains(e.target) && !dropdown.contains(e.target)) {
+                        dropdown.classList.add('hidden');
+                    }
+                });
+            }
+        }
+
+        function logoutUser() {
+            if (confirm('Are you sure you want to logout?')) {
+                window.appFunctions.logout();
+            }
+        }
+    </script>
+</body>
+</html>

@@ -333,6 +333,70 @@ function updateOrderStatus(orderId, status) {
     return { success: false, message: 'Order not found' };
 }
 
+// Wishlist Management
+function toggleWishlist(productId) {
+    const user = getCurrentUser();
+    
+    if (!user) {
+        showNotification('Please login to add items to wishlist', 'error');
+        setTimeout(() => window.location.href = 'login.html', 1500);
+        return;
+    }
+    
+    const wishlistKey = 'wishlist_' + user.userId;
+    let wishlist = JSON.parse(localStorage.getItem(wishlistKey) || '[]');
+    
+    const index = wishlist.indexOf(productId);
+    
+    if (index > -1) {
+        wishlist.splice(index, 1);
+        showNotification('Removed from wishlist', 'info');
+    } else {
+        wishlist.push(productId);
+        showNotification('Added to wishlist!', 'success');
+    }
+    
+    localStorage.setItem(wishlistKey, JSON.stringify(wishlist));
+    updateWishlistUI(productId);
+    
+    return wishlist;
+}
+
+function isInWishlist(productId) {
+    const user = getCurrentUser();
+    if (!user) return false;
+    
+    const wishlistKey = 'wishlist_' + user.userId;
+    const wishlist = JSON.parse(localStorage.getItem(wishlistKey) || '[]');
+    return wishlist.includes(productId);
+}
+
+function updateWishlistUI(productId) {
+    const icon = document.querySelector(`.wishlist-icon-${productId}`);
+    if (icon) {
+        if (isInWishlist(productId)) {
+            icon.classList.remove('far');
+            icon.classList.add('fas', 'text-red-500');
+        } else {
+            icon.classList.remove('fas', 'text-red-500');
+            icon.classList.add('far');
+        }
+    }
+}
+
+function initializeWishlistUI() {
+    // Update all wishlist icons on page load
+    const user = getCurrentUser();
+    if (user) {
+        const wishlistKey = 'wishlist_' + user.userId;
+        const wishlist = JSON.parse(localStorage.getItem(wishlistKey) || '[]');
+        
+        wishlist.forEach(productId => {
+            updateWishlistUI(productId);
+        });
+    }
+}
+
 // Export functions for use in other files
 window.appFunctions = {
     addToCart,
@@ -359,5 +423,9 @@ window.appFunctions = {
     createOrder,
     getOrders,
     getUserOrders,
-    updateOrderStatus
+    updateOrderStatus,
+    toggleWishlist,
+    isInWishlist,
+    updateWishlistUI,
+    initializeWishlistUI
 };

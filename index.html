@@ -305,6 +305,11 @@
         document.addEventListener('DOMContentLoaded', function() {
             updateAuthUI();
             initProfileDropdown();
+            
+            // Initialize wishlist UI after featured products are loaded
+            setTimeout(() => {
+                window.appFunctions.initializeWishlistUI();
+            }, 200);
         });
 
         function updateAuthUI() {
