@@ -236,7 +236,7 @@ function renderProductCard(product) {
         <div class="product-card fade-in" onclick="window.location.href='product-detail.html?id=${product.id}'">
             <div class="relative overflow-hidden">
                 <img src="${product.image}" alt="${product.name}" class="product-image">
-                <button onclick="event.stopPropagation(); window.appFunctions.toggleWishlist(${product.id})" class="absolute top-4 right-4 w-10 h-10 bg-white rounded-full flex items-center justify-center hover:bg-gray-100 transition shadow-md wishlist-btn-${product.id}">
+                <button onclick="event.stopPropagation(); toggleWishlistButton(${product.id}); return false;" class="absolute top-4 right-4 w-10 h-10 bg-white rounded-full flex items-center justify-center hover:bg-gray-100 transition shadow-md wishlist-btn wishlist-btn-${product.id}">
                     <i class="far fa-heart text-xl wishlist-icon-${product.id}"></i>
                 </button>
             </div>
@@ -258,12 +258,26 @@ function renderProductCard(product) {
     `;
 }
 
+// Helper function to toggle wishlist from button click
+function toggleWishlistButton(productId) {
+    if (window.appFunctions && window.appFunctions.toggleWishlist) {
+        window.appFunctions.toggleWishlist(productId);
+    }
+}
+
 // Load featured products on homepage
 function loadFeaturedProducts() {
     const container = document.getElementById('featured-products');
     if (container) {
         const featured = getFeaturedProducts();
         container.innerHTML = featured.map(renderProductCard).join('');
+        
+        // Initialize wishlist UI after rendering featured products
+        setTimeout(() => {
+            if (window.appFunctions && window.appFunctions.initializeWishlistUI) {
+                window.appFunctions.initializeWishlistUI();
+            }
+        }, 100);
     }
 }
 
@@ -283,3 +297,6 @@ window.productFunctions = {
     deleteProduct,
     renderProductCard
 };
+
+// Make toggleWishlistButton available globally
+window.toggleWishlistButton = toggleWishlistButton;

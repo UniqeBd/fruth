@@ -216,6 +216,13 @@
                 container.innerHTML = products.map(product => 
                     window.productFunctions.renderProductCard(product)
                 ).join('');
+                
+                // Initialize wishlist UI after rendering products
+                setTimeout(() => {
+                    if (window.appFunctions && window.appFunctions.initializeWishlistUI) {
+                        window.appFunctions.initializeWishlistUI();
+                    }
+                }, 50);
             }
         }
 

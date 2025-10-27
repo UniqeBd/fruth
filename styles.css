@@ -429,3 +429,25 @@ tr:hover {
     object-fit: cover;
     border: 2px solid #e5e7eb;
 }
+
+/* Wishlist Button */
+.wishlist-btn {
+    z-index: 10;
+    transition: all 0.3s ease;
+}
+
+.wishlist-btn:hover {
+    transform: scale(1.1);
+}
+
+.wishlist-btn i {
+    transition: all 0.3s ease;
+}
+
+.wishlist-btn i.text-red-500 {
+    color: #ef4444 !important;
+}
+
+.wishlist-btn i.fas {
+    font-weight: 900;
+}
